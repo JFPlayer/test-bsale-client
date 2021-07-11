@@ -1,0 +1,32 @@
+
+.catalog {
+  width: 90%;
+  margin: 30px auto;
+
+  @include mqDesktop {
+    max-width: 1200px;
+  }
+}
+
+.catalog__list {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  
+  @include mqTablet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include mqDesktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @include mqDesktopLarge {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.catalog__pagination {
+  display: flex;
+  justify-content: center;
+}

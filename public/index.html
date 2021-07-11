@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test BSALE</title>
+</head>
+<body>
+  <header class="header">
+    <nav class="header__main">
+      <a class="header__logo" href="/">
+        <img src="../src/assets/img-logos-logo-bsale-naranjo.png" alt="logo">
+      </a>
+
+      <div class="header__categories">
+        <button id="btn-menu" class="categories-btn">
+          <span class="title">
+            Categorias
+          </span>
+          <span class="icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75H19.25"></path>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 18.25H19.25"></path>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12H19.25"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <form id="search-bar" class="header__search">
+        <div class="search__container">
+          <input type="text" placeholder="Buscar producto"/>
+          <button type="submit">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 19.25L15.5 15.5M4.75 11C4.75 7.54822 7.54822 4.75 11 4.75C14.4518 4.75 17.25 7.54822 17.25 11C17.25 14.4518 14.4518 17.25 11 17.25C7.54822 17.25 4.75 14.4518 4.75 11Z"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <a id="btn-cart" class="header__cart" href="/cart.html">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 7.75H19.25L17.6128 14.7081C17.4002 15.6115 16.5941 16.25 15.666 16.25H11.5395C10.632 16.25 9.83827 15.639 9.60606 14.7618L7.75 7.75ZM7.75 7.75L7 4.75H4.75"></path>
+          <circle cx="10" cy="19" r="1" fill="currentColor"></circle>
+          <circle cx="17" cy="19" r="1" fill="currentColor"></circle>
+        </svg>        
+      </a>
+    </nav>
+
+    <section id="slideout-categories" class="slideout-categories">
+      <ul id="categories-list" class="categories-list"></ul>
+    </section>
+  </header>
+
+  <main>
+    <div class="catalog">
+      <div id="catalog-list" class="catalog__list"></div>
+      <div class="catalog__pagination">
+        <div id="pagination-container" class="pagination__container">
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+@import './index.scss';
+@import './Header.scss';
+@import './CartProduct.scss';
+
+.cart {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.cart__list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px
+}

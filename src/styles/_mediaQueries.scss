@@ -1,0 +1,17 @@
+@mixin mqTablet {
+  @media screen and (min-width: 480px){
+    @content;
+  }
+}
+
+@mixin mqDesktop {
+  @media screen and (min-width: 800px) {
+    @content;
+  }
+}
+
+@mixin mqDesktopLarge {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}

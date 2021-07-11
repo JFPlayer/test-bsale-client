@@ -1,0 +1,35 @@
+@import './variables.scss';
+@import './mediaQueries.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-body);
+  font-size: 62.5%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+li {
+  list-style: none;
+}
+
+input {
+  outline: none;
+  background: none;
+  border: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
