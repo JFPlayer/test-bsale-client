@@ -9,15 +9,29 @@ import './header'
 import * as productService from '../services/product'
 import * as cartService from '../services/cart'
 
+/**
+ * Initial state
+ */
 let state = {
   product: {},
   cart: [],
+  timeoutId: null,
 }
 
+/**
+ * Gets a property value of the state by key
+ * @param {String} key A property of the state
+ * @returns {*} A property value of the state
+ */
 function getState(key) {
   return state[key]
 }
 
+/**
+ * Updates the state by an action type and a value
+ * @param {String} action Type of action
+ * @param {*} payload 
+ */
 function setState(action, payload) {
   switch (action) {
     case 'set-product':
@@ -59,11 +73,20 @@ function setState(action, payload) {
       }
       cartService.updateCart(state.cart)
       break
+    case 'set-timeoutId':
+      state = {
+        ...state,
+        timeoutId: payload
+      }
+      break
     default:
       null
   }
 }
 
+/**
+ * Renders the product component
+ */
 const renderProduct = () => {
   const product = getState('product')
   //product__image
@@ -98,34 +121,63 @@ const renderProduct = () => {
   productTotal.innerHTML = `$${priceTotal.toLocaleString('de-DE')}`
 }
 
-
+/**
+ * Adds product to cart
+ */
 function addProduct() {
   setState('add-cart')
 }
 
+/**
+ * Change location to home page and search products by keyword
+ * @param {EventListenerOrEventListenerObject} event 
+ */
+function searchProductsByKeywordFromIndex(event) {
+  const { value } = event.target
+  clearTimeout(getState('timeoutId'))
+  
+  const timeoutId = setTimeout(() => {
+    window.location.assign(`/?search=${value}`)
+  }, 1000)
+  setState('set-timeoutId', timeoutId)
+}
+
+/**
+ * Change location to home page and search products by categoryId
+ * @param {EventListenerOrEventListenerObject} event 
+ */
+function searchProductsByCategoryFromIndex(event) {
+  const categoryId = event.target.dataset.category
+  if(categoryId) {
+    window.location.assign(`/?categoryId=${categoryId}`)
+  }
+}
 
 (function main() {
   //get productId from URL 
   const productId = new URLSearchParams(window.location.search)
-  .get("productId")
+    .get("productId")
 
   const products = cartService.getCart()
   setState('set-cart', products)
   
-  try {
-    productService.getProductById(productId)
-      .then(product => {
-        setState('set-product', product)
-      })
-      .catch(error => {
-        setState('set-product', {})
-      })
+  productService.getProductById(productId)
+    .then(product => {
+      setState('set-product', product)
+    })
+    .catch(() => {
+      setState('set-product', {})
+      document.querySelector('#product-container').innerText = "PRODUCT NOT FOUND"
+    })
 
-    const buttonCart = document.querySelector('#product-cart')
-    buttonCart.addEventListener('click', addProduct)
-    
-  } catch (error) {
-    const productContainer = document.querySelector('#product-container')
-    productContainer.innerText = "PRODUCT NOT FOUND"
-  }
+  document.querySelector('#product-cart')
+    .addEventListener('click', addProduct)
+
+  //listener search-bar
+  document.querySelector('#search-bar')
+  .addEventListener('input', searchProductsByKeywordFromIndex)
+  
+  //listener category-menu
+  document.querySelector('#categories-list')
+    .addEventListener('click', searchProductsByCategoryFromIndex)
 })()

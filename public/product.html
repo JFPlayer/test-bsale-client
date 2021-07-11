@@ -8,36 +8,35 @@
 </head>
 <body>
   <header class="header">
-    <nav class="header__container">
+    <nav class="header__main">
       <a class="header__logo" href="/">
         <img src="../src/assets/img-logos-logo-bsale-naranjo.png" alt="logo">
       </a>
 
-      <div class="header__nav-menu">
-        <button id="btn-menu" class="nav-button">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75H19.25"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 18.25H19.25"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12H19.25"></path>
-          </svg>
+      <div class="header__categories">
+        <button id="btn-menu" class="categories-btn">
+          <span class="title">
+            Categorias
+          </span>
+          <span class="icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 5.75H19.25"></path>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 18.25H19.25"></path>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12H19.25"></path>
+            </svg>
+          </span>
         </button>
-        
-        <ul class="nav-menu-list">
-          <li>
-            <a href="/">Tienda</a>
-          </li>
-        </ul>
       </div>
 
       <form id="search-bar" class="header__search">
-        <!-- <div class="search__container">
+        <div class="search__container">
           <input type="text" placeholder="Buscar producto"/>
           <button type="submit">
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 19.25L15.5 15.5M4.75 11C4.75 7.54822 7.54822 4.75 11 4.75C14.4518 4.75 17.25 7.54822 17.25 11C17.25 14.4518 14.4518 17.25 11 17.25C7.54822 17.25 4.75 14.4518 4.75 11Z"/>
             </svg>
           </button>
-        </div> -->
+        </div>
       </form>
 
       <a id="btn-cart" class="header__cart" href="/cart.html">
@@ -48,7 +47,14 @@
         </svg>        
       </a>
     </nav>
+
+    <section id="slideout-categories" class="slideout-categories">
+      <div class="slideout-categories__content">
+        <ul id="categories-list" class="categories-list"></ul>
+      </div>
+    </section>
   </header>
+  
   <main>
     <div class="product">
       <div id="product-container" class="product__container">

@@ -6,8 +6,8 @@ const slideoutCategories = document.querySelector('#slideout-categories')
 const listContainer = document.querySelector('#categories-list')
 
 /**
- * 
- * @param {array} categories 
+ * Renders the category list 
+ * @param {Array} categories Category list
  */
 function renderCategoryList(categories) {
   const fragment = document.createDocumentFragment()
@@ -23,8 +23,6 @@ function renderCategoryList(categories) {
   listContainer.appendChild(fragment)
 }
 
-
-
 (function main() {
   btnMenu.addEventListener('click', () => {
     slideoutCategories.classList.toggle('active')
@@ -37,14 +35,4 @@ function renderCategoryList(categories) {
     .catch(error => {
       console.log(error)
     })
-  
 })()
-
-// function getProductsByCategory(event) {
-//   const categoryId = event.target.dataset.category
-//   if(categoryId) {
-    
-//   }
-// }
-
-// listContainer.addEventListener('click', getProductsByCategory)

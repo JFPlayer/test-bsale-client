@@ -13,33 +13,46 @@ import * as cartService from '../services/cart'
 //header functions
 import './header.js'
 
+
+//main elements
 const catalogList = document.querySelector('#catalog-list')
 const paginationContainer = document.querySelector('#pagination-container')
-const listContainer = document.querySelector('#categories-list')
 
-//initial state
+/**
+ * Initial state
+ */
 let state = {
   products: [],
   page: 1,
   search: '',
   searchCategory: '',
+  limit: 10,
   cart: [],
-  totalPages: 0,
+  totalProducts: 0,
   timeoutId: null,
 }
 
+/**
+ * Gets a property value of the state by key
+ * @param {String} key A property of the state
+ * @returns {*} A property value of the state
+ */
 function getState(key) {
   return state[key]
 }
 
+/**
+ * Updates the state by an action type and a value
+ * @param {String} action Type of action
+ * @param {*} payload 
+ */
 function setState(action, payload) {
-
   switch (action) {
     case 'set-products':
       state = {
         ...state,
         products: payload.products,
-        totalPages: payload.totalPages,
+        totalProducts: payload.totalProducts,
       }
       renderCatalog()
       break
@@ -105,11 +118,15 @@ function setState(action, payload) {
   }
 }
 
+/**
+ * Updates the page number
+ * @param {EventListenerOrEventListenerObject} event 
+ */
 function changePage(event) {
   const page = event.target.dataset.page || event.target.parentNode.dataset.page
   let isNewPage = false
   const currentPage = getState('page')
-  const totalPages = getState('totalPages')
+  const totalPages = Math.ceil(getState('totalProducts') / getState('limit'))
   
   if(page === 'back' && currentPage > 1) {
     setState('set-page', currentPage - 1)
@@ -129,19 +146,24 @@ function changePage(event) {
   if(isNewPage) {
     const keyword = getState('search')
     const categoryId = getState('searchCategory')
-    productService.getProducts(keyword, page, categoryId)
+    productService.getProducts({keyword, page, categoryId})
       .then(({ products, total }) => {
-        setState('set-products', { products, totalPages: Math.ceil(total / 10) })
+        setState('set-products', { products, totalProducts: total })
         setState('set-page', page)
+        window.scrollTo(0, 0)
       })
       .catch(() => {
-        setState('set-products', { products: [], totalPages: 0 })
+        setState('set-products', { products: [], totalProducts: 0 })
         setState('set-page', 1)
+        window.scrollTo(0, 0)
       })
-    window.scrollTo(0, 0)
   }
 }
 
+/**
+ * Adds a product to cart by productId
+ * @param {EventListenerOrEventListenerObject} event 
+ */
 function addCart(event) {
   const action = event.target.dataset.action || event.target.parentNode.dataset.action
   if(action === 'add') {
@@ -151,14 +173,21 @@ function addCart(event) {
   }
 }
 
+/**
+ * Renders the main page, catalog and pagination
+ */
 function renderCatalog() {
   const products = getState('products')
-  const totalPages = getState('totalPages')
+  const totalPages = Math.ceil(getState('totalProducts') / getState('limit'))
 
   renderProducts(products)
   renderPagination(totalPages)
 }
 
+/**
+ * Render the product catalog
+ * @param {Array} products Product list
+ */
 function renderProducts(products) {
   const fragment = document.createDocumentFragment()
 
@@ -180,6 +209,10 @@ function renderProducts(products) {
   catalogList.addEventListener('click', addCart)
 }
 
+/**
+ * Renders the pagination component
+ * @param {Number} totalPages Total pages
+ */
 function renderPagination(totalPages) {
   
   paginationContainer.removeEventListener('click', changePage)
@@ -194,55 +227,80 @@ function onChangeSearchBar(event) {
   
   const timeoutId = setTimeout(() => {
     setState('set-search', value)
-  }, 1000)
+  }, 750)
   setState('set-timeoutId', timeoutId)
 }
 
+/**
+ * Search products by keyword
+ */
 function searchProducts() {
   const keyword = getState('search')
 
-  productService.getProductsByKeyword(keyword)
+  productService.getProducts({keyword})
     .then(({ products, total }) => {
-      setState('set-products', { products, totalPages: Math.ceil(total / 10) })
+      setState('set-products', { products, totalProducts: total })
       setState('set-page', 1)
     })
     .catch(() => {
-      setState('set-products', { products: [], totalPages: 0 })
+      setState('set-products', { products: [], totalProducts: 0 })
       setState('set-page', 1)
     })
 }
 
+/**
+ * Search products by categoryId
+ * @param {EventListenerOrEventListenerObject} event 
+ */
 function getProductsByCategory(event) {
   const categoryId = event.target.dataset.category
   if(categoryId) {
     setState('set-searchCategory', categoryId)
-    productService.getProductsByCategory(categoryId)
+    productService.getProducts({categoryId})
     .then(({ products, total }) => {
-      setState('set-products', { products, totalPages: Math.ceil(total / 10) })
+      setState('set-products', { products, totalProducts: total })
       setState('set-page', 1)
     })
     .catch(() => {
-      setState('set-products', { products: [], totalPages: 0 })
+      setState('set-products', { products: [], totalProducts: 0 })
       setState('set-page', 1)
     })
   }
 }
 
 (function main() {
-  productService.getProducts()
+  //all queries
+  const query = {}
+  //query to search
+  const filteredQuery = {}
+
+  //get categoryId, keyword from URL 
+  const searchParams = new URLSearchParams(window.location.search)
+  query.categoryId = searchParams.get("categoryId")
+  query.keyword = searchParams.get("search")
+  
+  //filter query
+  for(const key in query) {
+    if(query[key]) filteredQuery[key] = query[key]
+  }
+
+  productService.getProducts(filteredQuery)
     .then(({ products, total }) => {
-      setState('set-products', { products, totalPages: Math.ceil(total / 10) })
+      setState('set-products', { products, totalProducts: total })
     })
     .catch(() => {
-      setState('set-products', { products: [], totalPages: 0 })
+      setState('set-products', { products: [], totalProducts: 0 })
     })
+
     
   const products = cartService.getCart()
   setState('set-cart', products)
 
-  //listener search bar
-  const searchBar = document.querySelector('#search-bar')
-  searchBar.addEventListener('input', onChangeSearchBar)
-
-  listContainer.addEventListener('click', getProductsByCategory)
+  //listener search-bar
+  document.querySelector('#search-bar')
+  .addEventListener('input', onChangeSearchBar)
+  
+  //listener categories-list
+  document.querySelector('#categories-list')
+    .addEventListener('click', getProductsByCategory)
 })()
