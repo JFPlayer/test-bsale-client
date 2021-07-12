@@ -253,6 +253,9 @@ function searchProducts() {
  * @param {EventListenerOrEventListenerObject} event 
  */
 function getProductsByCategory(event) {
+  //close dropdown menu
+  document.querySelector('#slideout-categories').classList.remove('active')
+  
   const categoryId = event.target.dataset.category
   if(categoryId) {
     setState('set-searchCategory', categoryId)
