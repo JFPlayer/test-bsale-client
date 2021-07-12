@@ -1,5 +1,10 @@
 
 /**
+ * Variable in localStorage
+ */
+const PRODUCTS_CART = 'PRODUCTS_CART'
+
+/**
  * Updates a product from the localStorage cart
  * @param {String|Number} productId 
  * @param {String} action 
@@ -19,7 +24,7 @@ export function updateProductCart(productId, action) {
   })
   .filter(({quantity}) => quantity)
 
-  localStorage.setItem('productsCart', JSON.stringify(updatedCart))
+  localStorage.setItem(PRODUCTS_CART, JSON.stringify(updatedCart))
   
   return updatedCart
 }
@@ -29,7 +34,7 @@ export function updateProductCart(productId, action) {
  * @returns {Array} cartList
  */
 export function getCart() {
-  const products = localStorage.getItem('productsCart')
+  const products = localStorage.getItem(PRODUCTS_CART)
   if(!products) return []
   return JSON.parse(products)
 }
@@ -39,5 +44,5 @@ export function getCart() {
  * @param {Array} products
  */
 export function updateCart(products = []) {
-  localStorage.setItem('productsCart', JSON.stringify(products))
+  localStorage.setItem(PRODUCTS_CART, JSON.stringify(products))
 } 
