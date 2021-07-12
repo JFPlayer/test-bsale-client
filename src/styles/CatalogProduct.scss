@@ -3,6 +3,10 @@
   width: 100%;
   background-color: var(--bg-product);
   box-shadow: 0px 1px 2px 2px var(--gray);
+  
+  &:hover {
+    box-shadow: 0px 0px 2px 1px var(--orange);
+  }
 }
 
 .product__title {
@@ -63,5 +67,9 @@
     width: 50%;
     height: 50%;
     transform: translate(0px, 2px);
+  }
+
+  &:hover {
+    filter: brightness(1.3);
   }
 }

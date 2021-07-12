@@ -3,8 +3,10 @@ const CartProduct = ({ productId, name, category, src, quantity, price, discount
   const productContainer = document.createElement('div')
   productContainer.className = 'product'
   //product__image
-  const productImage = document.createElement('div')
+  const productImage = document.createElement('a')
   productImage.className = 'product__image'
+  productImage.href = `/product.html?productId=${productId}`
+
   let productImageImg
   if(src) {
     productImageImg = document.createElement('img')

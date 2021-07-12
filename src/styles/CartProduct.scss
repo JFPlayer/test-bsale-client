@@ -56,4 +56,12 @@
     border: solid 1px var(--white);
     color: var(--white)
   }
+
+  div {
+    user-select: none;
+  }
+
+  button:hover {
+    filter: brightness(1.3);
+  }
 }
