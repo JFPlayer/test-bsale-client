@@ -1,14 +1,14 @@
-#Test Bsale Frontend
+# Test Bsale Frontend
 _Aplicacion web ecommerce desarrollado como prueba tecnica para Bsale_
 
-##Vista previa 
+## Vista previa 
 [![](/preview-bsale.jpg)](https://test-bsale-joel-flores.herokuapp.com/)
 Demo: [E-commerce Bsale](https://test-bsale-joel-flores.herokuapp.com/)
 
-##Comenzando 🚀
+## Comenzando 🚀
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-###Instalación 🔧
+### Instalación 🔧
 
 Clonar el proyecto
 ```bash
@@ -26,14 +26,14 @@ Iniciar el servidor de desarrollo
 ```bash
   npm run dev
 ```
-##Caracteristicas 📋
+## Caracteristicas 📋
 - Busqueda de productos por "palabras clave", categoria
 - Carrito de compras
 - Paginación
 
 
-##Construido con 🛠️
+## Construido con 🛠️
 **Client:** Vanilla Javascript, Sass
 
-##Autor ✒️
+## Autor ✒️
 **[Joel Flores](https://www.linkedin.com/in/joel-flores-7801/)**
